@@ -11,25 +11,36 @@ import java.util.Scanner;
  *
  * @author Praktikan
  */
-public class Jurnal {
-public static void main (String[]args) {
-    
-        Scanner show = new Scanner(System.in);
-        System.out.print("Masukan Jumlah Deret Fibonacci ");
-        int n = show.nextInt();
-        long fib[] = new long[n];
-         
-        int i=1;
-        fib[0] = 0;
-        fib[1] = 1;
-         
-        for(i = 2; i < n; i++) {
-            fib[i] = fib[i-1] + fib[i-2];
+public class jurnal {
+    private int[] a;
+
+    private int fib(int i) {
+        assert (i>=0);
+
+        if (a[i]==0) {
+            if (i==0 || i==1) {
+                a[i] = 1;
+            } else {
+                a[i] = fib(i - 2) + fib(i - 1);
+            }
         }
-         
-        for (i = 0; i < n; i++) {
-            System.out.print(fib[i] +  " ");
+
+        return a[i];
+    }
+
+    public jurnal(int numberTerms) {
+        if (numberTerms<2) throw new IllegalArgumentException("expect at least 2 terms for a Fibonacci sequence");
+        a = new int[numberTerms];
+    }
+
+    public void print() {
+        for (int i=a.length; i!=0; i--) {
+            System.out.println(fib(i-1));
         }
     }
- 
+
+    public static void main(String[] args) {
+        jurnal f = new jurnal(7);
+        f.print();
+    }
 }
